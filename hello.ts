@@ -251,4 +251,224 @@ function getStock2(name:string){
 }
 var stock = new getStock2('IBM');
 
+//forEach(),for in,for of
+var myArray = [1,2,3,4];
+myArray.desc = 'four number';
 
+myArray.forEach(value =>console.log(value));//1,2,3,4 forEach()忽略属性，不能break，
+
+for(var n in myArray){//属性名字，键值对的键的名字，下标，
+    console.log(n);
+}//0,1,2,3,desc
+
+for(var n in myArray){
+    console.log(myArray[n])//1,2,3,4 值
+}
+
+for(var n of myArray){
+    if(n >2) break;
+    console.log(n);
+}//1,2
+
+//如果用在字符串上，就会把字符串的每一个值打出来
+for(var n of 'four munber'){
+    console.log(n)
+}
+
+//类class，typescript的核心，大部分代码都是写在类里面的
+class person{
+    constructor(){console.log('haha')}
+    public name;        //属性
+    public eat(){    //方法
+    console.log('im eating');
+    }
+}
+var p1 = new person();//实例化
+p1.name = 'lee';
+p1.eat();
+
+var p2 = new person();
+p2.name = 'join';
+p2.eat();
+
+//访问控制符：private，public，protected
+
+//类的构造函数 costructor，实例化的时候调用一次
+
+class person{
+    constructor(name:string){
+        this.name = name;
+    }
+    name;
+    eat(){
+        console.log(this.name)
+    }
+}
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('jion');
+p2.eat();
+
+class person{
+    constructor(public name:string){
+
+    }
+    eat(){
+        console.log(this.name);
+    }
+}
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('join');
+p2.eat();
+
+//类的继承，extends，super
+class person{
+    constructor(public name:string){
+
+    }
+    eat(){
+        console.log(this.name);
+    }
+}
+class jack extends person{
+    code:string;
+    work(){
+
+    }
+}
+var e1 = new jack('rose')
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('join');
+p2.eat();
+
+class person{
+    constructor(public name:string){
+    console.log('haha')
+    }
+    eat(){
+        console.log('i am eating');
+    }
+}
+class Employee extends person{
+   constructor(name:string,code:string){
+       super(name);  //必须引入父元素
+       console.log('xixi');
+       this.code = code;
+   }
+    code:string;
+    work(){
+        super.eat();
+        this.dowork();
+    }
+    dowork(){
+        console.log('i am working')
+    }
+}
+var e1 = new Employee('rose','1')
+e1.work();
+/*
+ haha
+ xixi
+ i am eating
+ i am working
+ */
+
+//泛型：参数化的类型，一般用来限制集合的内容
+class person{
+    constructor(public name:string){
+        console.log('haha')
+    }
+    eat(){
+        console.log('i am eating');
+    }
+}
+class Employee extends person{
+    constructor(name:string,code:string){
+        super(name);  //必须引入父元素
+        console.log('xixi');
+        this.code = code;
+    }
+    code:string;
+    work(){
+        super.eat();
+        this.dowork();
+    }
+    dowork(){
+        console.log('i am working')
+    }
+}
+var works: Array<person> = [];//<person>数组的泛型，规定了数组里只能放person
+works[0] = new person('zhang yang');
+works[1] = new Employee('zhang','2');
+
+var e1 = new Employee('rose','1')
+e1.work();
+
+//接口interface：用来建立某种代码约定，使得其他开发者在调用某个方法或创建新的类时必须遵循接口所定义的代码约定
+interface IPerson{
+    name: string;
+    age: number;
+}
+class person{
+    constructor(public config: IPerson) {
+
+    }
+}
+var p1 = new person({
+    name: 'zhangsan',
+    age:18
+})
+
+
+
+interface Animal{
+    eat();
+}
+class Sheep implements Animal{
+    eat() {
+        console.log('i eat gress')
+    }
+}
+class Tiger implements Animal{
+    eat() {
+        console.log('i an meat')
+    }
+}
+//模块：可以帮助开发者将代码分割为可重用的单元，开发者可以自己决定将模块中的哪个资源（类，方法，变量）暴露出去供外部使用，哪些资源只在模块内使用
+//一个文件就是一个模块，两个关键字，export，import
+//第一个模块
+export var prop1;//对外暴露
+
+var prop2;//不对外暴露
+
+export function func1(){
+
+}
+
+function func2(){
+
+}
+
+export  class calzz1{
+
+}
+
+class clazz2{
+
+}
+
+//第二个模块
+console.log(prop1);
+func1();
+
+new clazz2();
+
+//一个模块既可以对外暴露他的属性方法和类，也可以export别人的属性方法和类
+
+//注解annotation：为程序的元素（类，方法，变量）加上更直观更明了的说明，这些说明信息与程序的业务逻辑无关，而是供指定的工具或框架使用
+
+//类型定义文件（*.d.ts）用来定义文件来帮助开发者在typescript中使用已有的js的工具包，eg：jquery
+
+工具：github.com/typings/typings

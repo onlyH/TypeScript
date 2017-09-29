@@ -1,3 +1,8 @@
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 /**
  * Created by iMacbook on 2017/9/29.
  */
@@ -204,4 +209,211 @@ function getStock2(name) {
     }, 1000);
 }
 var stock = new getStock2('IBM');
+//forEach(),for in,for of
+var myArray = [1, 2, 3, 4];
+myArray.desc = 'four number';
+myArray.forEach(function (value) { return console.log(value); }); //1,2,3,4 forEach()忽略属性，不能break，
+for (var n in myArray) {
+    console.log(n);
+} //0,1,2,3,desc
+for (var n in myArray) {
+    console.log(myArray[n]); //1,2,3,4 值
+}
+for (var _i = 0; _i < myArray.length; _i++) {
+    var n = myArray[_i];
+    if (n > 2)
+        break;
+    console.log(n);
+} //1,2
+//如果用在字符串上，就会把字符串的每一个值打出来
+for (var _e = 0, _f = 'four munber'; _e < _f.length; _e++) {
+    var n = _f[_e];
+    console.log(n);
+}
+//类class，typescript的核心，大部分代码都是写在类里面的
+var person = (function () {
+    function person() {
+        console.log('haha');
+    }
+    person.prototype.eat = function () {
+        console.log('im eating');
+    };
+    return person;
+})();
+var p1 = new person(); //实例化
+p1.name = 'lee';
+p1.eat();
+var p2 = new person();
+p2.name = 'join';
+p2.eat();
+//访问控制符：private，public，protected
+//类的构造函数 costructor，实例化的时候调用一次
+var person = (function () {
+    function person(name) {
+        this.name = name;
+    }
+    person.prototype.eat = function () {
+        console.log(this.name);
+    };
+    return person;
+})();
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('jion');
+p2.eat();
+var person = (function () {
+    function person(name) {
+        this.name = name;
+    }
+    person.prototype.eat = function () {
+        console.log(this.name);
+    };
+    return person;
+})();
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('join');
+p2.eat();
+//类的继承，extends，super
+var person = (function () {
+    function person(name) {
+        this.name = name;
+    }
+    person.prototype.eat = function () {
+        console.log(this.name);
+    };
+    return person;
+})();
+var jack = (function (_super) {
+    __extends(jack, _super);
+    function jack() {
+        _super.apply(this, arguments);
+    }
+    jack.prototype.work = function () {
+    };
+    return jack;
+})(person);
+var e1 = new jack('rose');
+var p1 = new person('lee');
+p1.eat();
+var p2 = new person('join');
+p2.eat();
+var person = (function () {
+    function person(name) {
+        this.name = name;
+        console.log('haha');
+    }
+    person.prototype.eat = function () {
+        console.log('i am eating');
+    };
+    return person;
+})();
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee(name, code) {
+        _super.call(this, name); //必须引入父元素
+        console.log('xixi');
+        this.code = code;
+    }
+    Employee.prototype.work = function () {
+        _super.prototype.eat.call(this);
+        this.dowork();
+    };
+    Employee.prototype.dowork = function () {
+        console.log('i am working');
+    };
+    return Employee;
+})(person);
+var e1 = new Employee('rose', '1');
+e1.work();
+/*
+ haha
+ xixi
+ i am eating
+ i am working
+ */
+//泛型：参数化的类型，一般用来限制集合的内容
+var person = (function () {
+    function person(name) {
+        this.name = name;
+        console.log('haha');
+    }
+    person.prototype.eat = function () {
+        console.log('i am eating');
+    };
+    return person;
+})();
+var Employee = (function (_super) {
+    __extends(Employee, _super);
+    function Employee(name, code) {
+        _super.call(this, name); //必须引入父元素
+        console.log('xixi');
+        this.code = code;
+    }
+    Employee.prototype.work = function () {
+        _super.prototype.eat.call(this);
+        this.dowork();
+    };
+    Employee.prototype.dowork = function () {
+        console.log('i am working');
+    };
+    return Employee;
+})(person);
+var works = []; //<person>数组的泛型，规定了数组里只能放person
+works[0] = new person('zhang yang');
+works[1] = new Employee('zhang', '2');
+var e1 = new Employee('rose', '1');
+e1.work();
+var person = (function () {
+    function person(config) {
+        this.config = config;
+    }
+    return person;
+})();
+var p1 = new person({
+    name: 'zhangsan',
+    age: 18
+});
+var Sheep = (function () {
+    function Sheep() {
+    }
+    Sheep.prototype.eat = function () {
+        console.log('i eat gress');
+    };
+    return Sheep;
+})();
+var Tiger = (function () {
+    function Tiger() {
+    }
+    Tiger.prototype.eat = function () {
+        console.log('i an meat');
+    };
+    return Tiger;
+})();
+var prop2; //不对外暴露
+function func1() {
+}
+exports.func1 = func1;
+function func2() {
+}
+var calzz1 = (function () {
+    function calzz1() {
+    }
+    return calzz1;
+})();
+exports.calzz1 = calzz1;
+var clazz2 = (function () {
+    function clazz2() {
+    }
+    return clazz2;
+})();
+//第二个模块
+console.log(exports.prop1);
+func1();
+new clazz2();
+//一个模块既可以对外暴露他的属性方法和类，也可以export别人的属性方法和类
+//注解annotation：为程序的元素（类，方法，变量）加上更直观更明了的说明，这些说明信息与程序的业务逻辑无关，而是供指定的工具或框架使用
+//类型定义文件（*.d.ts）用来定义文件来帮助开发者在typescript中使用已有的js的工具包，eg：jquery
+工具;
+github.com / typings / typings;
 //# sourceMappingURL=hello.js.map
